@@ -1,0 +1,296 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-image: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/blackorchid.png);
+  overflow: hidden;
+}
+
+.container {
+	position: relative;
+	margin: 200px auto;
+	width: 300px;
+	height: 300px;
+	perspective: 500px;
+
+}
+.ultracube{
+	position: absolute;
+	width: inherit;
+	height: inherit;
+	transform-style: preserve-3d;
+	 
+
+}
+.megacube3{
+	
+	transform: translate3d(0,-600px,-100px);
+	display: grid;
+	grid-template-columns: 100px 100px 100px ;
+  grid-template-rows: 100px 100px 100px ;
+width: inherit;
+	height: inherit;
+	transform-style: preserve-3d;
+}
+.megacube2{
+transform-origin: :inherit; 
+transform: translate3d(0,-300px,100px);
+
+	display: grid;
+	grid-template-columns: 100px 100px 100px ;
+  grid-template-rows: 100px 100px 100px ;
+	transform-style: preserve-3d;
+	 
+}
+
+.megacube{
+	
+	display: grid;
+	grid-template-columns: 100px 100px 100px ;
+  grid-template-rows: 100px 100px 100px ;
+width: inherit;
+	height: inherit;
+	transform-style: preserve-3d;
+
+
+}
+.cube {
+	
+	width: 100px;
+	height: 100px;
+	transform-style: preserve-3d;
+     
+	
+}
+
+.side {
+	position: absolute;
+	width: inherit;
+	height: inherit;
+	border: 5px solid #fff;
+	font: normal 25px Arial;
+	text-align: center;
+	line-height: 100px;
+	color: #fff;
+	
+}
+
+.front {
+	transform: translateZ(50px);
+}
+
+.back {
+	transform: rotateY(180deg) translateZ(50px);
+}
+
+.right {
+	transform: rotateY(90deg) translateZ(50px);
+}
+
+.left {
+	transform: rotateY(-90deg) translateZ(50px);
+}
+
+.top {
+	transform: rotateX(90deg) translateZ(50px);
+}
+
+.bottom {
+	transform: rotateX(-90deg) translateZ(50px);
+}
+/*pervaya gran*/
+.megacube>.Mleftup
+{
+	transform-origin: 150px 150px 0px;
+}
+
+.megacube>.Mrightup{
+
+transform-origin: 150px -50px 0px;
+
+}
+.megacube>.centup{
+
+transform-origin: 150px 50px 0px;
+
+}
+
+.megacube2>.Mleftup
+{
+	transform-origin: 150px 150px -100px;
+}
+
+.megacube2>.Mrightup{
+
+transform-origin: 150px -50px -100px;
+
+}
+.megacube2>.centup{
+
+transform-origin: 150px 50px -100px;
+
+}
+.megacube3>.Mleftup
+{
+	transform-origin: 150px 150px 100px;
+}
+
+.megacube3>.Mrightup{
+
+transform-origin: 150px -50px 100px;
+
+}
+.megacube3>.centup{
+
+transform-origin: 150px 50px 100px;
+
+}
+
+
+/*vtoraya gran*/
+
+.megacube>.Mleftcent
+{
+	transform-origin: 50px 150px 0px;
+}
+
+.megacube>.Mrightcent{
+
+transform-origin: 50px -50px 0px;
+
+}
+.megacube>.centcent{
+
+transform-origin: 50px 50px 0px;
+
+}
+
+.megacube2>.Mleftcent
+{
+	transform-origin: 50px 150px -100px;
+}
+
+.megacube2>.Mrightcent{
+
+transform-origin: 50px -50px -100px;
+
+}
+.megacube2>.centcent{
+
+transform-origin: 50px 50px -100px;
+
+}
+.megacube3>.Mleftcent
+{
+	transform-origin: 50px 150px 100px;
+}
+
+.megacube3>.Mrightcent{
+
+transform-origin: 50px -50px 100px;
+
+}
+.megacube3>.centcent{
+
+transform-origin: 50px 50px 100px;
+}
+
+/*tretia gran*/
+
+.megacube>.Mleftbot
+{
+	transform-origin: -50px 150px 0px;
+}
+
+.megacube>.Mrightbot{
+
+transform-origin: -50px -50px 0px;
+
+}
+.megacube>.centbot{
+
+transform-origin: -50px 50px 0px;
+
+}
+
+.megacube2>.Mleftbot
+{
+	transform-origin: -50px 150px -100px;
+}
+
+.megacube2>.Mrightbot{
+
+transform-origin: -50px -50px -100px;
+
+}
+.megacube2>.centbot{
+
+transform-origin: -50px 50px -100px;
+
+}
+.megacube3>.Mleftbot
+{
+	transform-origin: -50px 150px 100px;
+}
+
+.megacube3>.Mrightbot{
+
+transform-origin: -50px -50px 100px;
+
+}
+.megacube3>.centbot{
+
+transform-origin: -50px 50px 100px;
+}
+
+
+
+
+
+
+.megacube>.cube>.left,
+.megacube2>.cube>.left,
+.megacube3>.cube>.left
+{
+
+ background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Socialist_red_flag.svg/1200px-Socialist_red_flag.svg.png);
+}
+.megacube>.cube>.back,
+.megacube2>.cube>.back,
+.megacube3>.cube>.back
+{
+
+ background: url(https://wallbox.ru/resize/1680x1050/wallpapers/main/201123/86384c6db054459647e0d15b44c79926.jpg);
+}
+
+.megacube>.cube>.top,
+.megacube2>.cube>.top,
+.megacube3>.cube>.top
+{
+
+   background-size: 100px 100px;
+ background-image: url(http://dog-alterapars.com/wp-content/uploads/pug_AP_Jaklin.jpg);
+}
+
+.megacube>.cube>.right,
+.megacube2>.cube>.right,
+.megacube3>.cube>.right
+{
+color: black;
+ background-color: white;
+}
+.megacube>.cube>.front,
+.megacube2>.cube>.front,
+.megacube3>.cube>.front
+{
+
+ background-color: yellow;
+}
+.megacube>.cube>.bottom,
+.megacube2>.cube>.bottom,
+.megacube3>.cube>.bottom
+{
+
+ background-color: orange;
+}

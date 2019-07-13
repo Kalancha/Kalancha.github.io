@@ -1,0 +1,426 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Collections;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\Users\thene\Desktop\23.txt";
+            string textbefore;
+           
+            ArrayList list = new ArrayList();
+            using (StreamReader sr = new StreamReader(path, Encoding.Default))
+            {
+                textbefore = sr.ReadToEnd();
+            }
+
+            int procent = 0;
+            StringBuilder textafter = new StringBuilder(textbefore);
+            Console.WriteLine(textafter);
+            while (textafter.Length > 0)
+            {
+
+                int kol = 1;
+                char a = textafter[0];
+                for (int i = 1; i < textafter.Length; i++)
+                {
+
+                    if (a == textafter[i])
+                    {
+                        kol += 1;
+                        textafter.Remove(i, 1);
+                        i--;
+                    }
+
+                }
+                textafter.Remove(0, 1);
+                list.Add(a);
+                list.Add(kol);
+                Console.WriteLine(textafter.Length);
+            }
+
+
+            //for (int kos = 0; kos < textafter.Length; kos++)
+            //{
+            //    int kol = 0;
+            //    int prop = 0;
+            //    for (int i = 0; i < list.Count; i++)
+            //    {
+            //        if (textbefore[0].ToString() == list[i].ToString())
+            //        {
+            //            kol = Convert.ToInt32(list[i + 1]);
+            //            list.RemoveAt(i + 1);
+            //            list.Insert(i + 1, kol);
+            //            prop = 1;
+            //        }
+
+            //    }
+            //    if (prop == 0)
+            //    {
+            //        list.Add(textbefore[0]);
+            //        list.Add(1);
+            //    }
+            //    if (kos == textafter.Length - 1)
+            //        Console.WriteLine(kos);
+            //}
+            for (int i = 0; i < list.Count; i++)
+            {
+                Console.WriteLine(list[i]);
+
+            }
+            Console.Read();
+
+                Console.Write("point");
+            int count = list.Count / 2; 
+            string[,] Binary = new string[count, 2];
+            for (int e = 0;e<count;e+=1)
+            {
+                Binary[e, 0] = (list[(e*2)]).ToString();
+            }
+            
+
+           
+         
+            while (list.Count > 2)
+            {
+                //foreach (object o in list)
+                //{
+                //    Console.WriteLine(o);
+                //}
+
+                //Console.WriteLine();
+                //Console.WriteLine();
+                //Console.WriteLine();
+                tree(list, Binary, count);
+            }
+
+
+
+
+
+
+
+
+            //foreach (object o in list)
+            //{
+            //    Console.WriteLine(o);
+            //}
+            //Console.WriteLine("    ");
+            //Console.WriteLine("    ");
+            //Console.WriteLine("    ");
+
+
+
+
+
+            for (int a = 0; a < 2; a++)
+            {
+                for (int i = 0; i < count; i += 1)
+                {
+                    Console.Write(Binary[i, a] + "         ");
+
+                }
+                Console.WriteLine();
+            }
+            Console.Write("Point");
+            Console.Read();
+           
+            int lo = 0;
+            string teext = "";
+           
+            string realtexttest = "";
+            while (lo < textbefore.Length)
+            {
+                if ((textbefore.Length - lo) >= 1000)
+                {
+                    
+                       
+                        teext = textbefore.Substring(lo,1000);
+                        realtexttest += Kodirovka(Binary, teext);
+                        lo += 1000;
+                    
+                  
+                    
+                }
+                else
+                {
+                      teext = textbefore.Substring(lo-1000, textbefore.Length - lo);
+                        realtexttest += Kodirovka(Binary, teext);
+                    
+                
+                    lo += 1000;
+                }
+
+                if (lo %10000==0 )
+                {
+                    procent += 1;
+                    Console.Clear();
+                    Console.WriteLine(procent + "œ–Œ÷≈Õ“Œ¬");
+
+                }
+
+            }
+            Console.Write("Point");
+           
+           Console.Write("Point");
+            string PUT = @"C:\Users\thene\Desktop\KursovayaItog.txt";
+            
+            using (StreamWriter writer = new StreamWriter(PUT ,false, System.Text.Encoding.Default))
+            {
+                string realtext2 = "";
+                int mak = 0;
+                {
+                    while (mak < realtexttest.Length)
+                    {
+                        if ((realtexttest.Length - mak) >= 1000)
+                        {
+
+
+                            realtext2 = realtexttest.Substring(mak, 1000);
+
+                            writer.Write(Perevod(realtext2));
+                            mak += 1000;
+
+
+                        }
+                        else
+                        {
+                            realtext2 = realtexttest.Substring(mak - 1000, realtexttest.Length - mak);
+
+                            writer.Write(Perevod(realtext2));
+
+                            mak += 1000;
+                        }
+                    }
+
+                 
+                }
+            }
+
+           
+
+
+
+
+            //Console.ReadLine();
+        }
+
+
+        static ArrayList Sort(ArrayList det)
+        {
+            ArrayList SortList = new ArrayList();
+            SortList = det;
+            int index = -1;
+           
+            for (int a = 0; a < SortList.Count; a+=2)
+            {
+                long Max = 0;
+                for (int i = 1; i < SortList.Count-a; i += 2)
+                { 
+                    if (Convert.ToInt64(SortList[i]) > Max)
+                    {
+                        Max = Convert.ToInt64(SortList[i]);
+                        index = i;
+                    }
+                   
+                }
+               
+                SortList.Add(SortList[index-1]);
+                SortList.Add(SortList[index]);
+                SortList.RemoveAt(index);
+                SortList.RemoveAt(index - 1);
+
+                
+
+
+            }
+          
+            return (SortList);
+
+        }
+        static void tree(ArrayList tr, string[,] mas, int count)
+        {
+            Sort(tr);
+            tr.Reverse();           
+            long min1 = Convert.ToInt64(tr[0]);
+            long min2 = Convert.ToInt64(tr[2]);
+            string mi1 = tr[1].ToString();
+            string mi2 = tr[3].ToString();
+            tr.RemoveAt(0);
+            tr.RemoveAt(0);
+            tr.RemoveAt(0);
+            tr.RemoveAt(0);
+            int dlina = 1;
+            tr.Add(min1 + min2);
+            tr.Add(mi1 + mi2);
+            for (int i = 0;i < count;i++)
+            {
+                dlina = 1;
+           
+                while ( dlina <= mi1.Length )
+                {
+
+                   
+
+                    if (mas[i, 0] == mi1[dlina - 1].ToString())
+                    {
+                        if (mi1.Length < 2)
+                        {
+                            mas[i, 1] += "0";
+                        }
+                        else
+                        {
+                            mas[i, 1] = mas[i, 1].Insert(0,"0");
+                        }
+                    }
+                    dlina += 1;
+
+                }
+                dlina = 1;
+                while (dlina <= mi2.Length)
+                {
+                    if (mas[i, 0] == mi2[dlina-1].ToString())
+                    {
+                        if (mi2.Length < 2)
+                        {
+                            mas[i, 1] += "1";
+                        }
+                        else
+                        {
+                            
+                            mas[i, 1] = mas[i, 1].Insert(0, "1");
+                        }
+                      
+                    }
+
+                    dlina += 1;
+                }
+            }
+
+
+
+
+            tr.Reverse();
+            Sort(tr);
+            
+            
+           
+
+        }
+
+        static string Kodirovka(string[,] Binary, string textbefore)
+        {
+           
+            string kodtext = "";
+            for (int i=0;i<textbefore.Length;i++)
+            {
+             
+
+
+                int ch = 0;
+               
+
+                    while (true)
+                    {
+                    
+
+                    if (Binary[ch, 0] == textbefore[i].ToString())
+                        {
+                           
+                            kodtext += Binary[ch, 1];
+                          
+                            break;
+                        }
+                        ch += 1;
+
+                    }
+                
+               
+
+            }
+
+
+
+         
+            return (kodtext);
+        }
+
+        static string Perevod(string hoffman)
+        {
+          
+            string syst = "0123456789abcdefghiklmnopqrstuvwxyzABCDEFGHIKLMOPQRSTUVWXYZ[]!@#$‡·‚„‰Â∏ÊÁËÍÎÏÌÓÔÒÚÛÙıˆ¯˘˙˚¸˝˛ˇ¿¡¬√ƒ≈®∆«» ÀÃÕŒ–—“”‘’÷ÿŸ⁄€‹›ﬁﬂ_+";
+            Console.Write(syst.Length);
+            string kodir = "";
+            string perem = "";
+            int itog = 0;
+          
+            while ((hoffman.Length % 7) != 0)
+            {
+                hoffman = hoffman.Insert(0, "0");
+
+
+            }
+            Console.Write("Point");
+
+            for (int i = hoffman.Length; i >= 0; i -= 7)      //ÔÂÂ·Ó ‚ÒÂ„Ó
+            {
+               
+                //Console.WriteLine((hoffman.Length - i)*100/hoffman.Length + "œ–Œ÷≈Õ“Œ¬");
+
+                if (i != hoffman.Length)
+                {
+                    int e = 0;
+                    while (e < 7)
+                    {
+                        perem += hoffman[i + e].ToString();             //·ÂÂÏ ˜ËÒÎÓ ÔÓ 6 ÁÌ‡ÍÓ‚ +
+                        e++;
+
+
+                    }
+                  //  Console.WriteLine(perem);
+                }
+
+
+
+                int cikl = 0;
+                if (perem != "")
+                {
+                    for (int a = 6; a >= 0; a--)
+                    {
+
+
+
+                        itog += ((int)Char.GetNumericValue(perem[a]) * Convert.ToInt32(Math.Pow(2, cikl)));   //v desyatichnuu
+
+
+
+                        cikl++;
+
+                    }
+                //    Console.WriteLine(itog);
+                    kodir += syst[itog];
+                    itog = 0;
+
+                }
+
+                perem = "";
+
+
+
+
+            }
+            return(kodir);
+         
+
+        }
+
+
+    }
+}

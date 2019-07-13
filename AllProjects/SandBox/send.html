@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>2048</title>
+</head>
+ <body>
+ 	<canvas id="2048" width="500" height="600"> </canvas>
+ 	<script >
+ 		
+
+ 		const canvas = document.getElementById("2048");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+canvas.style.backgroundColor = "#333";
+
+const context = canvas.getContext("2d");
+
+context.fillStyle = 'blue';
+
+// Глобальные вспомогательные методы 
+// (можно также запихать в классы и юзать как приватные)
+function get_random_color() {
+return "#"+((1<<24)*Math.random()|0).toString(16);
+}
+function getRandomArbitrary(min, max) {
+	return Math.random() * (max - min) + min;
+}
+
+function drawRect(rect) {
+	context.fillStyle = get_random_color();
+	context.fillRect(rect.x, rect.y, 20, 20);
+}
+
+class Rect {
+	constructor() {
+		this.x = canvas.width/2;
+		this.y = canvas.height/2;
+		this.naprx = getRandomArbitrary(-10, 10);
+		this.napry = getRandomArbitrary(-10, 10);
+	}
+
+	// Квадрат может сам менять свои координаты
+	move () {
+		this.x += this.naprx;
+		this.y += this.napry;
+	}
+}
+
+// Создаем единожды экземпляр класса Rect
+let rectangle = new Rect();
+let pieces = [];
+pieces[0] = new Rect();
+pieces[1]  = new Rect();
+pieces[2]  = new Rect();
+pieces[1].x = 100;
+pieces[0].y = 100;
+var chislo = 3;
+document.addEventListener('keydown', function () {
+  pieces.push(new Rect());
+  chislo+=1;
+});
+
+	
+
+(function main() {
+//context.clearRect(0, 0, canvas.width, canvas.height);
+  for (var i = 0; i < chislo ; i++) {
+	// Меняем координаты квадрата
+
+    pieces[i].move();
+	// Очищаем поле
+	
+	// Отрисовываем его
+
+	drawRect(pieces[i]);
+
+       napr(pieces[i]);
+   }
+
+	// Повторяем 60 раз в секунду
+	requestAnimationFrame(main);
+}())
+
+
+function napr(One)
+{
+	if (One.x <= 0 || One.x >= canvas.width-50)
+		One.naprx = -One.naprx
+	if (One.y <= 0 || One.y >= canvas.height-50)
+		One.napry = - One.napry
+}
+ 	</script>
+ </body>
+
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+	}
+</style>
+
+ </html>

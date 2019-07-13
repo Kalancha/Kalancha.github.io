@@ -1,0 +1,233 @@
+<html>
+<head>
+<title>2048</title>
+</head>
+ <body>
+ 	<canvas id="2048" width="500" height="600"> </canvas>
+ 	<script>
+ 		var x = window.innerWidth/2;
+ 		var y = 80;
+ 		var prx = 0;
+ 		var pry = 0;
+ 		var vkl = 1;
+ 		var prirost = 0.1;
+ 		const canvas = document.getElementById("2048");
+ canvas.width = window.innerWidth;
+ canvas.height = window.innerHeight;
+ canvas.style.backgroundColor = "white";
+ const ctx = canvas.getContext("2d");
+
+var size;
+	size = 30;
+function r()
+{
+  x = x+size;
+  
+}
+function l()
+{
+  x = x-size;
+ 
+}
+function t()
+{
+   y = y-size;
+ 
+}
+function b()
+{
+   y = y+size;
+
+}
+function f()
+{
+  ctx.fillRect(x,y,size,size);
+
+}
+function beat()
+{
+ ctx.fillStyle = "black";
+ctx.fillRect(x,y,size,size);
+r();ctx.fillRect(x,y,size,size);r();ctx.fillRect(x,y,size,size);
+r();b();ctx.fillRect(x,y,size,size); r();b();ctx.fillRect(x,y,size,size);
+r();ctx.fillRect(x,y,size,size);
+r();t();ctx.fillRect(x,y,size,size); r();t();ctx.fillRect(x,y,size,size);
+r();ctx.fillRect(x,y,size,size);
+r();ctx.fillRect(x,y,size,size);
+r();b();ctx.fillRect(x,y,size,size); r();b();ctx.fillRect(x,y,size,size);r();b();ctx.fillRect(x,y,size,size);
+b();ctx.fillRect(x,y,size,size);b();ctx.fillRect(x,y,size,size);b();ctx.fillRect(x,y,size,size);
+l();b();ctx.fillRect(x,y,size,size);b();ctx.fillRect(x,y,size,size);
+l();b();ctx.fillRect(x,y,size,size);l();b();ctx.fillRect(x,y,size,size);l();b();ctx.fillRect(x,y,size,size);l();b();ctx.fillRect(x,y,size,size);
+l();b();ctx.fillRect(x,y,size,size);
+l();b();ctx.fillRect(x,y,size,size);
+l();ctx.fillRect(x,y,size,size);
+l();t();ctx.fillRect(x,y,size,size);l();t();ctx.fillRect(x,y,size,size);l();t();ctx.fillRect(x,y,size,size);l();t();ctx.fillRect(x,y,size,size);
+l();t();ctx.fillRect(x,y,size,size);l();t();ctx.fillRect(x,y,size,size);t();ctx.fillRect(x,y,size,size);l();t();ctx.fillRect(x,y,size,size);
+t();ctx.fillRect(x,y,size,size);t();ctx.fillRect(x,y,size,size);t();ctx.fillRect(x,y,size,size);
+t();r();ctx.fillRect(x,y,size,size);t();r();ctx.fillRect(x,y,size,size);
+
+ctx.fillStyle = "red";
+r();ctx.fillRect(x,y,size,size);r();ctx.fillRect(x,y,size,size);r();ctx.fillRect(x,y,size,size);
+r();b();ctx.fillRect(x,y,size,size);
+l();l();l();l();ctx.fillRect(x,y,size,size);
+l();b();ctx.fillRect(x,y,size,size);r();r();r();ctx.fillRect(x,y,size,size);r();ctx.fillRect(x,y,size,size);r();ctx.fillRect(x,y,size,size);
+b();f();l();f();l();f();l();f();l();l();f();
+b();f();r();r();f();r();f();r();f();r();f();
+b();f();l();f();l();f();l();f();l();f();l();f();
+b();r();f();
+ctx.fillRect(x,y,size*10,size*2); r();r();r();r();r();t();t();t();t();
+ctx.fillRect(x,y,size*7,size*6);
+r();r();t();
+ctx.fillRect(x,y,size*5,size*1);
+r();t();ctx.fillRect(x,y,size*3,size*1); b();b();b();b();b();b();b();b();l();l();l();l();l();l();l();ctx.fillRect(x,y,size*10,size*1);
+b();r();ctx.fillRect(x,y,size*8,size*1);
+b();r();ctx.fillRect(x,y,size*6,size*1);
+b();r();ctx.fillRect(x,y,size*4,size*1);
+b();r();ctx.fillRect(x,y,size*2,size*1);
+t();t();t();t();t();t();t();t();t();t();
+ctx.fillRect(x,y,size*8,size*4);
+ctx.fillStyle = "#FBD4D4";
+l();l();l();t();f();l();b();f();l();b();f();
+ctx.fillStyle = "#F36D6D";
+b();f();t();t();f();t();r();f();r();r();f();t();t();l();l();
+
+
+
+
+
+
+}
+
+(function main() {
+
+	var x = window.innerWidth/2;
+ 		var y = 80;
+ 		var prx = 0;
+ 		var pry = 0;
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+beat();
+
+if (size<=27)
+{
+	prirost = 0.1;
+}
+if (size>=33)
+{
+	prirost = -0.1;
+}
+size += prirost ;
+
+
+
+	if(vkl==1){
+	requestAnimationFrame(main);
+}
+}())
+
+var per =1;
+canvas.addEventListener('click', function(evt) {
+   vkl = 0;
+   switch(per)
+   {
+
+   	case 1:
+   	 destroy();
+   	break;
+
+   		case 2:
+   	 destroy1();
+   	break;
+
+   		case 3:
+   	 destroy3();
+   	break;
+
+   		case 4:
+   	 destroy4();
+   	break;
+
+   	case 5:
+   	 destroy5();
+   	break;
+
+   }
+  
+
+
+}, false);
+
+function  destroy() {
+
+	per = 2;
+	
+}
+
+function  destroy1() {
+
+ctx.fillStyle = "white";
+ctx.fillRect(window.innerWidth/2+5*size,70+2*size,(size+1),3*(size+1));
+ctx.fillRect(window.innerWidth/2+3*size,80+4*size,(size+1),(size+1));
+per = 3;
+}
+
+function  destroy3() {
+
+ctx.fillStyle = "white";
+ctx.fillRect(window.innerWidth/2+6*size,80+3*size,(size+1),2*(size+1));
+ctx.fillRect(window.innerWidth/2+5*size,80+7*size,(size+1),(size+1));
+ctx.fillRect(window.innerWidth/2+6*size,80+9*size,(size+1),(size+1));
+ctx.fillRect(window.innerWidth/2+7*size,80+10*size,(size+1),(size+1));
+ctx.fillRect(window.innerWidth/2+8*size,80+11*size,(size+1),(size+1));
+ctx.fillRect(window.innerWidth/2+9*size,80+12*size,(size+2),(size+2));
+per = 4;
+}
+
+function  destroy4() {
+
+ctx.fillStyle = "white";
+ctx.fillRect(window.innerWidth/2+5*size,70+3*size,(size+1),3*(size+1));
+ctx.fillRect(window.innerWidth/2+5*size,70+4*size,(size+1),3*(size+1));
+ctx.fillRect(window.innerWidth/2+5*size,70+5*size,(size+1),3*(size+1));
+ctx.fillRect(window.innerWidth/2+4*size,70+6*size,(size+1),3*(size+1));
+ctx.fillRect(window.innerWidth/2+3*size,70+7*size,(size+1),3*(size+1));
+ctx.fillRect(window.innerWidth/2+2*size,70+8*size,(size+1),3*(size+1));
+ctx.fillRect(window.innerWidth/2+1*size,70+9*size,(size+1),3*(size+1));
+ctx.fillRect(window.innerWidth/2+size,70+10*size,(size+1),3*(size+1));
+per = 5;
+}
+
+var blind = 2;
+var time = 0;
+function  destroy5() {
+
+ctx.fillRect(0,0,canvas.width,blind);
+blind+=2;
+time += 1/60;
+if(time<=6){
+	requestAnimationFrame(destroy5);
+}
+else
+{
+	ctx.font = "80px COMIC SANS MS";
+ctx.strokeStyle = "red";
+
+ctx.lineWidth = 2;
+ctx.strokeText("My heart will be yours forever", 150, 500);
+	
+}
+}
+
+
+
+
+ </script>
+ </body>
+
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+	}
+</style>
+
+ </html>
