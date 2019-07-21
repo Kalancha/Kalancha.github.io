@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+    <div class="text">
+
+        <div class="container c">
+            <div class="back side"></div>
+            <div class="left side"></div>
+            <div class="right side"></div>
+            <div class="top side"></div>
+            <div class="bottom side"></div>
+            <div class="front side"></div>
+        </div>
+        <div class="container a">
+            <div class="back side"></div>
+            <div class="left side"></div>
+            <div class="right side"></div>
+            <div class="top side"></div>
+            <div class="bottom side"></div>
+            <div class="front side"></div>
+        </div>
+        <div class="container b">
+            <div class="back side"></div>
+            <div class="left side"></div>
+            <div class="right side"></div>
+            <div class="top side"></div>
+            <div class="bottom side"></div>
+            <div class="front side"></div>
+        </div>
+        <div class="container d">
+            <div class="back side"></div>
+            <div class="left side"></div>
+            <div class="right side"></div>
+            <div class="top side"></div>
+            <div class="bottom side"></div>
+            <div class="front side"></div>
+        </div>
+        <div class="container e">
+            <div class="back side"></div>
+            <div class="left side"></div>
+            <div class="right side"></div>
+            <div class="top side"></div>
+            <div class="bottom side"></div>
+            <div class="front side"></div>
+        </div>
+        <div class="container f">
+            <div class="back side"></div>
+            <div class="left side"></div>
+            <div class="right side"></div>
+            <div class="top side"></div>
+            <div class="bottom side"></div>
+            <div class="front side"></div>
+        </div>
+        <div class="container g">
+            <div class="back side"></div>
+            <div class="left side"></div>
+            <div class="right side"></div>
+            <div class="top side"></div>
+            <div class="bottom side"></div>
+            <div class="front side"></div>
+        </div>
+        <div class="container l">
+            <div class="back side"></div>
+            <div class="left side"></div>
+            <div class="right side"></div>
+            <div class="top side"></div>
+            <div class="bottom side"></div>
+            <div class="front side"></div>
+        </div>
+        <div class="container k">
+            <div class="back side"></div>
+            <div class="left side"></div>
+            <div class="right side"></div>
+            <div class="top side"></div>
+            <div class="bottom side"></div>
+            <div class="front side"></div>
+        </div>
+        <div class="container h">
+            <div class="back side"></div>
+            <div class="left side"></div>
+            <div class="right side"></div>
+            <div class="top side"></div>
+            <div class="bottom side"></div>
+            <div class="front side"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<style>
+    *{
+        margin:0;
+    }
+    BODY {
+        perspective: 1400px;
+        /* perspective-origin: center -5em; */
+    }
+
+
+    .a {
+        grid-area: a;
+    }
+
+    .b {
+        grid-area: b;
+    }
+
+    .c {
+        grid-area: c;
+    }
+
+    .d {
+        grid-area: d;
+    }
+    .e{
+        grid-area: e;
+    }
+    .f{
+        grid-area: f;
+    }
+    .g{
+        grid-area: g;
+    }
+    .l{
+        grid-area: l;
+    }
+    .k{
+        grid-area: k;
+    }
+    .h{
+        grid-area: h;
+    }
+
+    .text {
+        display: grid;
+        grid-template-rows: repeat(5, 200px);
+        grid-template-columns: repeat(5, 200px);
+        grid-template-areas:
+            " . . c a b "
+            " . d . . . "
+            " . . e f . "
+            " . . . . g "
+            " . l k h . ";
+        /* ". . . s s s s s . . . "
+         ". . s s s s s s s . . "
+         ". s s . . . . . . . . "
+         ". s s . . . . . . . . "
+         ". s s . . . . . . . . "
+         ". . s s . . . . . . . "
+         ". . . s s s s  . . . "
+         ". . . . s s s s . . . "
+         ". . . . . . . s s . . "
+         ". . . . . . . s s . . "
+         ". . . . . . . s s . . "
+         ". . . . . . . s s . . "
+         ". . . s s s s s . . . "
+         ". . s s s s s . . . . ";  */
+
+    }
+
+    .c {
+        width: 50em;
+    }
+
+    .container {
+        border: 2px dotted white;
+        transform-style: preserve-3d;
+        animation: rotate 10s infinite linear;
+
+        /* transform: translateX(-300px); */
+    }
+
+    .container:hover {
+        transform: translateZ(1700px);
+        transition-duration: 1s;
+    }
+
+    .container:not(:hover) {
+        transform: translateZ(-1700px);
+        transition-duration: 1s;
+    }
+
+    .side {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border: 2px solid white;
+        opacity: .7;
+    }
+
+    .back {
+        transform: translateZ(-50px);
+        background: orange;
+    }
+
+    .left {
+        transform: translateX(-100px) rotateY(90deg);
+        background: lightgreen;
+    }
+
+    .right {
+        transform: translateX(100px) rotateY(90deg);
+        background: yellowgreen;
+    }
+
+    .top {
+        transform: translateY(-100px) rotateX(90deg);
+        background: skyblue;
+    }
+
+    .bottom {
+        transform: translateY(100px) rotateX(90deg);
+        background: steelblue;
+    }
+
+    .front {
+        transform: translateZ(100px);
+        background: gold;
+    }
+
+    /* @keyframes rotate {
+  100% {
+    transform: translateX(800px) rotatex(360deg) rotateY(360deg) rotateZ(360deg);
+
+  }
+} */
+
+
+    HTML,
+    BODY {
+        height: 100%;
+    }
+
+    BODY {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<script>
+    var rotateY = 0,
+        rotateX = 0,
+        rotateZ = 0,
+        tz = 0;
+
+    document.onkeydown = function (e) {
+        switch (e.keyCode) {
+            case 37: {
+                rotateX += 10;
+                break;
+            }
+            case 38: {
+                rotateY += 10;
+                break;
+            }
+            case 39: {
+                rotateX -= 10;
+                break;
+            }
+            case 40: {
+                rotateY -= 10;
+                break;
+            }
+            case 187: {
+                rotateZ += 10;
+                break;
+            }
+            case 189: {
+                rotateZ -= 10;
+                break;
+
+            }
+            case 32: {
+                tz += 10;
+                break;
+            }
+        }
+    }
+</script>
