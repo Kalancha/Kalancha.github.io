@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+  <div class="grid">
+      <span class="a"></span>
+      <span class="b"></span>
+        
+      <span class="c"></span>
+        
+      <span class="d"></span>
+        
+      <span class="e"></span>
+        
+      <span class="f"></span>
+        
+      <span class="g"></span>
+        
+      <span class="k"></span>
+  
+        
+      <span class="l"></span>
+        
+      <span class="h"></span>
+  </div>
+</body>
+</html>
+<style>
+  html,body{
+    height: 100%;
+  }
+  body{
+    perspective: 3800px;
+  }
+  .grid{
+    transform-style: preserve-3d;
+    width:100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: repeat(14, 50px);
+        grid-template-columns: repeat(11, 50px);
+        grid-template-areas: 
+         " . . . a a a a a . . . "
+         " . c c c c c c c c . . "
+         " b b . . . . . . . . . "
+         " b b . . . . . . . . . "
+         " b b . . . . . . . . . "
+         " . e e . . . . . . . . "
+         " . . f f f f f . . . . "
+         " . . . g g g g g . . . "
+         " . . . . . . . l l . . "
+         " . . . . . . . l l . . "
+         " . . . . . . . l l . . "
+         " . . . . . . . l l . . "
+         " . . . k k k k k . . . "
+         " . h h h h h h . . . . ";
+  }
+  span{
+    background-color: gold;  
+  }
+  
+  span:hover{
+    
+    transition-duration: 2s;
+    background: #000 url("https://static.tildacdn.com/tild6436-3838-4432-b539-656438346535/giphy.gif")
+          no-repeat right bottom;
+  }
+    .a,.e,.g,.b,.k{
+    
+    animation: tran 10s infinite linear;
+
+  }  
+   .c,.f,.l,.h{
+    animation: tran2 10s infinite linear;
+  } 
+  .a {
+        grid-area: a;
+    }
+
+    .b {
+        grid-area: b;
+    }
+
+    .c {
+        grid-area: c;
+    }
+
+    .d {
+        grid-area: d;
+    }
+    .e{
+        grid-area: e;
+    }
+    .f{
+        grid-area: f;
+    }
+    .g{
+        grid-area: g;
+    }
+    .l{
+        grid-area: l;
+    }
+    .k{
+        grid-area: k;
+    }
+    .h{
+        grid-area: h;
+    }
+    @keyframes tran {
+  15%{
+    transform: translateZ(-50px);
+  }
+  32% {
+    transform: translateZ(200px);
+  }
+  43%{
+    background: gold;
+  }
+  50%{
+    transform: translateZ(0px);
+    background: #000 url("https://static.tildacdn.com/tild6436-3838-4432-b539-656438346535/giphy.gif");
+  }
+  100% {
+    transform: translateZ(0px);
+  }
+ 
+}
+@keyframes tran2 {
+  15%{
+    transform: translateZ(150px);
+  }
+  32% {
+    transform: translateZ(-150px);
+  }
+  43%{
+    background: gold;
+  }
+  50%{
+    transform: translateZ(0px);
+    background: #000 url("https://static.tildacdn.com/tild6436-3838-4432-b539-656438346535/giphy.gif");
+  }
+  100% {
+    transform: translateZ(0px);
+  }
+ 
+}
+</style>
