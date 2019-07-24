@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <canvas id="snake" width="500" height="600"></canvas>
+</body>
+<script>
+    var start = 0;
+    var speed = 5;
+    var snake = 10;  //длина змеи
+    var naprx = 0;
+    var napry = 0;
+    const canvas = document.getElementById("snake");
+    canvas.width = document.documentElement.clientWidth;
+    canvas.height = document.documentElement.clientHeight;
+    canvas.style.backgroundColor = "#333";
+    var x = canvas.width / 2;
+    var y = canvas.height / 2;
+    //var time = [[x], [y]];
+    var time = [[-1, -1]]; 
+    var sec = 0;
+    var end = 0;
+    const context = canvas.getContext("2d");
+    class Food{
+        constructor(){
+            this.x = getRandomInt(0,canvas.width-40);
+            this.y = getRandomInt(0,canvas.height-40);
+            this.points = this.size = getRandomInt(20,40);
+        }
+        set(){
+            context.fillStyle = "#CF3A4B";
+            context.fillRect(this.x, this.y , this.size, this.size);
+        }
+    }
+    document.addEventListener('keydown', function (e) {
+        if(start==0){
+        start = 1;
+         draw();
+         }
+        naprx = 0;
+        napry = 0;
+        switch (e.keyCode) {
+            case 37:
+                naprx -= speed;
+                break;
+            case 38:
+                napry -= speed;
+                break;
+            case 39:
+                naprx = speed;
+                break;
+            case 40:
+                napry += speed;
+                break;
+            case 32:
+                console.log(time);
+                break;
+        }
+    });
+    function draw() {
+
+        if((x>=food.x-food.size)&&(x<=(food.x+food.size))&&(y>=food.y-food.size)&&(y<=(food.y+food.size))){  //Съели вкусняшу
+            context.fillStyle = "#333";
+            context.fillRect(food.x, food.y , food.size, food.size);
+        food = new Food();
+        food.set();
+        snake+=5;
+        sec=0;
+        }
+        sec++;
+        if (sec%1==0) {
+          
+            x += naprx;
+            y += napry;
+            if(x > canvas.width){
+             x = 0;
+            }
+            else if(x < 0){
+              x = canvas.width
+            }
+            if(y > canvas.height){
+                y = 0;
+            }
+            else if(y < 0){
+                y = canvas.height
+            }
+            time.push([x,y]);
+            if(watchDuplicates([x,y],time)){
+                // naprx = napry = 0;
+                // speed = 0;
+              //console.log
+              alert("game over");
+            }
+            
+            context.fillStyle = "#EE7D49";
+            context.fillRect(x, y, 20, 20);
+            if (sec > snake) {
+                var a = time[0][0];
+                var b = time[0][1];
+                
+                context.fillStyle = "#333";
+                context.fillRect(a - 1, b - 1, 22, 22);
+                time.shift();
+                
+            }
+
+        }
+        requestAnimationFrame(draw);
+    }
+    function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+    }
+    function watchDuplicates(mas, time) {
+        for (var i = 0; i < time.length-1; i++) {
+            if(JSON.stringify(time[i])==JSON.stringify(mas)){
+                console.log(time[i]);
+               return true;
+            }
+            // console.log(time[i][0]);
+            
+            // console.log(mas[0]);
+            // if((time[i][0]>=mas[0])&&(time[i][0]<=mas[0])){
+            //     if((time[i][1]>=mas[1])&&(time[i][1]<=(mas[1]+20))){
+            //         return true;
+            //     }
+            // }
+        }
+        return false;
+    }
+    
+    var food = new Food();
+    food.set();
+ 
+    
+  
+
+</script>
+<style>
+    html,
+    body,
+    canvas {
+        margin: 0;
+        padding: 0
+    }
+</style>
+
+</html>
