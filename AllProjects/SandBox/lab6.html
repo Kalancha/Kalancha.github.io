@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Шифрование XOR + Шифр Цезаря</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <div class="container">
+    <form class="container__form">
+      <div class="flex">
+        <label class="container__form__label">
+          Обычный текст
+          <textarea class="input" cols="30" rows="10" required id="encode_text"
+            placeholder="Обычный / раскодированный текст"></textarea>
+        </label>
+        <label class="container__form__label">
+          Закодированный текст
+          <textarea class="input" cols="30" rows="10" required id="decode_text"
+            placeholder="Закодированный текст"></textarea>
+        </label>
+      </div>
+      <label class="container__form__label">
+        Кодовое слово
+        <input class="input" id="key" type="text" placeholder="Кодовое слово" />
+      </label>
+      <div class="actions">
+        <button type="button" onclick="encode()">Закодировать</button>
+        <button type="button" onclick="decode()">Раскодировать</button>
+        <button type="button" onclick="clearAll()">Очистить</button>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
+<script>
+  function encode() {
+    let key = document.getElementById("key").value;
+    const input = document.getElementById("encode_text").value;
+
+    if (!key.length || !input.length) {
+      alert("Введите ключ, и текст для кодирования");
+      return;
+    }
+
+    const str =
+      "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-=!@#$^&*_+,./|\[{]}№;%:?()~`—«» ";
+
+    if (key.length < input.length) {
+      while (key.length < input.length) {
+        key += key;
+      }
+    }
+
+    let cesar = "";
+    const offset = key.length < 7 ? key.length : 6;
+
+    for (let i = 0; i < input.length; i++) {
+      let idx = str.indexOf(input[i]);
+      if (idx >= 0) {
+        const newidx =
+          idx + offset >= str.length ? idx - str.length + offset : idx + offset;
+        cesar += str[newidx];
+      } else {
+        cesar += input[i];
+      }
+    }
+
+    // шифруем сообщение XOR
+    let output = "";
+    const mas = []
+    for (let i = 0; i < cesar.length; i++) {
+      // берём цифровое значение очередного символа в сообщении и ключе
+      let inp = cesar.charCodeAt(i);
+      let k = key.charCodeAt(i);
+      // и применяем к ним исключающее или — XOR
+      output += String.fromCharCode((inp ^ k) + 30);
+    }
+
+    const out_textField = document.getElementById("decode_text");
+    out_textField.value = output;
+  }
+
+  function decode() {
+    let key = document.getElementById("key").value;
+    const input = document.getElementById("decode_text").value;
+
+    if (!key.length || !input.length) {
+      alert("Введите ключ, и текст для декодирования");
+      return;
+    }
+
+    const str =
+        "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-=!@#$^&*_+,./|\[{]}№;%:?()~`—«» ";
+
+    if (key.length < input.length) {
+      while (key.length < input.length) {
+        key += key;
+      }
+    }
+
+    // расшифруем сообщение XOR
+    let decodeXor = "";
+    for (let i = 0; i < input.length; i++) {
+      // берём цифровое значение очередного символа в сообщении и ключе
+      let inp = input.charCodeAt(i);
+      let k = key.charCodeAt(i);
+      // и применяем к ним исключающее или — XOR
+      decodeXor += String.fromCharCode((inp - 30) ^ k);
+    }
+
+    let output = "";
+    const offset = key.length < 7 ? key.length : 6;
+
+    for (let i = 0; i < decodeXor.length; i++) {
+      let idx = str.indexOf(decodeXor[i]);
+      if (idx >= 0) {
+        const newidx =
+          idx - offset < 0 ? str.length + idx - offset : idx - offset;
+        output += str[newidx];
+      } else {
+        output += decodeXor[i];
+      }
+    }
+
+    const out_textField = document.getElementById("encode_text");
+    out_textField.value = output;
+  }
+
+  function clearAll() {
+    document.getElementById("decode_text").value = "";
+    document.getElementById("encode_text").value = "";
+    document.getElementById("key").value = "";
+  }
+</script>
+<style>
+  .container__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container__form__label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .container__form__label .input {
+    margin-top: 10px;
+  }
+
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .flex>label:not(:last-child) {
+    margin-right: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background: white;
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  :root {
+    --input-border: #8b8a8b;
+    --input-focus-h: 245;
+    --input-focus-s: 100%;
+    --input-focus-l: 42%;
+  }
+
+  .input {
+    font-size: 16px;
+    font-family: inherit;
+    padding: 0.25em 0.5em;
+    background-color: #fff;
+    border: 2px solid var(--input-border);
+    border-radius: 4px;
+    transition: 180ms box-shadow ease-in-out;
+  }
+
+  .input:focus {
+    border-color: hsl(var(--input-focus-h),
+        var(--input-focus-s),
+        var(--input-focus-l));
+    box-shadow: 0 0 0 3px hsla(var(--input-focus-h),
+        var(--input-focus-s),
+        calc(var(--input-focus-l) + 40%),
+        0.8);
+    outline: 3px solid transparent;
+  }
+
+  .input:not(textarea) {
+    line-height: 1;
+    height: 2.25rem;
+  }
+
+  textarea.input {
+    resize: vertical;
+  }
+
+  .input[readonly] {
+    border-style: dotted;
+    cursor: not-allowed;
+    color: #777;
+  }
+
+  .input[disabled] {
+    --input-border: #ccc;
+
+    background-color: #eee;
+    cursor: not-allowed;
+  }
+
+  label {
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .input+label {
+    margin-top: 2rem;
+  }
+
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+    grid-gap: 0.5rem;
+    font-family: "Baloo 2", sans-serif;
+    background-color: #e9f2fd;
+    margin: 0 8px;
+  }
+</style>
