@@ -16,6 +16,13 @@
           <textarea class="input" cols="30" rows="10" required id="encode_text"
             placeholder="Обычный / раскодированный текст"></textarea>
         </label>
+
+        <label class="container__form__label">
+          Промежуточная кодировка/раскодировка Цезаря
+          <textarea class="input" cols="30" rows="10" required id="cesar"
+            placeholder="Промежуточная кодировка/раскодировка Цезаря"></textarea>
+        </label>
+
         <label class="container__form__label">
           Закодированный текст
           <textarea class="input" cols="30" rows="10" required id="decode_text"
@@ -69,6 +76,10 @@
       }
     }
 
+
+    const cesar_textField = document.getElementById("cesar");
+    cesar_textField.value = cesar;
+
     // шифруем сообщение XOR
     let output = "";
     const mas = []
@@ -115,6 +126,11 @@
     let output = "";
     const offset = key.length < 7 ? key.length : 6;
 
+
+
+    const cesar_textField = document.getElementById("cesar");
+    cesar_textField.value = decodeXor;
+
     for (let i = 0; i < decodeXor.length; i++) {
       let idx = str.indexOf(decodeXor[i]);
       if (idx >= 0) {
@@ -133,6 +149,7 @@
   function clearAll() {
     document.getElementById("decode_text").value = "";
     document.getElementById("encode_text").value = "";
+    document.getElementById("cesar").value = "";
     document.getElementById("key").value = "";
   }
 </script>
