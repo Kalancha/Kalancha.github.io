@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Метод LSB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+<div class="container">
+
+    <label class="container__form__label">
+        Текст для кодирования
+        <textarea maxlength="400" class="input" cols="30" rows="10" required id="encode_text"
+                  placeholder="Текст для кодирования"></textarea>
+    </label>
+
+    <label class="container__form__label">
+        Выберете изображение для кодирования
+        <input type="file" id="input_image" accept="image/png">
+    </label>
+
+    <button onclick="transformImage()">Закодировать текст в изображение</button>
+
+    <p>Выходное изображение</p>
+
+    <canvas id="myCanvas" width="100" height="100"
+            style="background-color:#eee;">
+        Ваш браузер не поддерживает Canvas
+    </canvas>
+
+    <div class="divider"></div>
+
+    <p>Загруженное изображение для дешифровки</p>
+    <canvas id="myCanvas2" width="100" height="100"
+            style="background-color:#eee;">
+        Ваш браузер не поддерживает Canvas
+    </canvas>
+
+
+    <input type="file" id="my_file_input_id" oninput="decodeImage()">
+
+    <label class="container__form__label">
+        Раскодированный текст
+        <textarea class="input" cols="30" rows="10" required id="decode_text"
+                  placeholder="Раскодированный текст"></textarea>
+    </label>
+
+</div>
+</body>
+
+</html>
+<script>
+    function transformImage(){
+
+        const image = document.getElementById("input_image").files[0];
+        const decodedStr = document.getElementById("encode_text").value;
+
+        if (!image || !decodedStr.length) {
+            alert("Выберете фото и введите текст");
+            return;
+        }
+
+        let binary = ""
+
+        for (let char of decodedStr){
+            let str = char.charCodeAt(0).toString(2)
+            while (str.length < 16) {
+                str = "0" + str
+            }
+            binary += str
+        }
+
+        let canvas = document.getElementById("myCanvas"),
+            context = canvas.getContext("2d");
+
+        const img = new Image();
+        const fr = new FileReader();
+
+        fr.onload = function () {
+            img.src = fr.result;
+        }
+        fr.readAsDataURL(document.getElementById("input_image").files[0])
+
+        img.onload = function() {
+            canvas.width = img.width
+            canvas.height = img.height
+            context.drawImage(img, 0, 0);
+            let imageData = context.getImageData(0,0, img.width, img.height);
+
+            for (let i = 0; i < imageData.data.length; i += 1) {
+
+                if(i * 2 + 2 > binary.length){
+                    break
+                }
+                imageData.data[i] = changeBase(imageData.data[i], binary.slice(i * 2, i * 2 + 2));
+            }
+
+            context.putImageData(imageData, 0, 0);
+
+            const dataURL = canvas.toDataURL("image/png");
+            const link = document.createElement("a");
+            link.href = dataURL;
+            link.download = "coded_image.png";
+            link.click();
+        };
+    }
+
+    function changeBase(num, bin){
+        let str = num.toString(2)
+        if(str.length < 2){
+            str = "0" + str
+        }
+        const newStr = str.split("")
+        newStr[newStr.length - 1] = bin[1]
+        newStr[newStr.length - 2] = bin[0]
+        return parseInt(newStr.join(""), 2);
+    }
+
+    function decodeImage(){
+        const img = new Image();
+        const fr = new FileReader();
+
+        img.onload = function() {
+            let canvas = document.getElementById("myCanvas2"),
+                context = canvas.getContext("2d");
+
+            canvas.width = img.width
+            canvas.height = img.height
+            context.drawImage(img, 0, 0);
+
+            let imageData = context.getImageData(0,0, img.width, img.height);
+
+            let outBin = ""
+
+            for (let i = 0; i < imageData.data.length; i += 1) {
+                let binary = imageData.data[i].toString(2).slice(-2)
+                if(binary.length < 2){
+                    binary = "0" + binary
+                }
+                outBin += binary
+            }
+
+            let decoded = ""
+                for (let i = 0; i < 6400; i += 16){
+                const codeChar = outBin.slice(i, i + 16)
+                decoded += String.fromCharCode(parseInt(codeChar, 2))
+            }
+            document.getElementById("decode_text").value = decoded
+        };
+
+        fr.onload = function () {
+            img.src = fr.result;
+        }
+        fr.readAsDataURL(document.getElementById("my_file_input_id").files[0])
+    }
+</script>
+<style>
+    .container__form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .divider {
+        width: 100%;
+        height: 2px;
+        background: #777777;
+        margin: 10px 0;
+    }
+
+    .container__form__label {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .container__form__label .input {
+        margin-top: 10px;
+    }
+
+    .flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .flex>label:not(:last-child) {
+        margin-right: 20px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background: white;
+        cursor: pointer;
+        color: black;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    :root {
+        --input-border: #8b8a8b;
+        --input-focus-h: 245;
+        --input-focus-s: 100%;
+        --input-focus-l: 42%;
+    }
+
+    .input {
+        font-size: 16px;
+        font-family: inherit;
+        padding: 0.25em 0.5em;
+        background-color: #fff;
+        border: 2px solid var(--input-border);
+        border-radius: 4px;
+        transition: 180ms box-shadow ease-in-out;
+    }
+
+    .input:focus {
+        border-color: hsl(var(--input-focus-h),
+        var(--input-focus-s),
+        var(--input-focus-l));
+        box-shadow: 0 0 0 3px hsla(var(--input-focus-h),
+        var(--input-focus-s),
+        calc(var(--input-focus-l) + 40%),
+        0.8);
+        outline: 3px solid transparent;
+    }
+
+    .input:not(textarea) {
+        line-height: 1;
+        height: 2.25rem;
+    }
+
+    textarea.input {
+        resize: vertical;
+    }
+
+    .input[readonly] {
+        border-style: dotted;
+        cursor: not-allowed;
+        color: #777;
+    }
+
+    .input[disabled] {
+        --input-border: #ccc;
+
+        background-color: #eee;
+        cursor: not-allowed;
+    }
+
+    label {
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 1;
+    }
+
+    .input+label {
+        margin-top: 2rem;
+    }
+
+    body {
+        min-height: 100vh;
+        display: grid;
+        place-content: center;
+        grid-gap: 0.5rem;
+        font-family: "Baloo 2", sans-serif;
+        background-color: #e9f2fd;
+        margin: 0 8px;
+    }
+</style>
