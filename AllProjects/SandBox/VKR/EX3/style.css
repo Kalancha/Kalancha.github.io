@@ -1,0 +1,23 @@
+html,
+body,
+canvas {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #1b2b34;
+  background: radial-gradient(ellipse at center, #001b36 0%, #000 100%);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+div {
+  z-index: 100;
+}
+div:last-child {
+  top: 48px !important;
+}
+canvas {
+  z-index: 10;
+}
